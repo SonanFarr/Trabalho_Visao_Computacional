@@ -22,7 +22,18 @@ Este trabalho consiste em implementar duas redes neurais convolucionais para o p
 ## Estrutura do Código:
 
 ```
-
+├───data
+│   ├───CIFAR-10
+│   └───Ainda a definir
+├───src
+│   ├───models
+│   │   ├───alexNet.py
+│   │   └───vgg16.py
+│   ├───utils
+│   │   └───utils.py
+│   └───main.ipynb
+├───.gitignore
+└───README
 ```
 
 ## Experimentos e Resultados:
