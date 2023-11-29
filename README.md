@@ -6,6 +6,7 @@ Matrícula       Nome                                E-mail
 ```
 202065020C      Daniel Muller Rezende               daniel.rezende@estudante.ufjf.br
 ```
+```
 202065560C      João Vítor de Castro M. F. Nogueira joao.nogueira@estudante.ufjf.br
 ```
 ## Descrição:
