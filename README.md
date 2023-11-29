@@ -17,15 +17,16 @@ Este trabalho consiste em implementar duas redes neurais convolucionais para o p
 
 ## Datasets Utilizados:
 
-- CIFAR-10;
-- Ainda a definir;
+- CIFAR-10; https://pytorch.org/vision/stable/generated/torchvision.datasets.CIFAR10.html
+- Building-vs-forests; https://www.kaggle.com/datasets/mhmmadalewi/buildings-vs-forests/data
+
 
 ## Estrutura do Código:
 
 ```
 ├───data
 │   ├───CIFAR-10
-│   └───Ainda a definir
+│   └───Building-vs-forests
 ├───src
 │   ├───models
 │   │   ├───alexNet.py
