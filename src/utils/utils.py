@@ -43,9 +43,6 @@ def train(dataloader, model, loss_fn, optimizer, device):
         # LOG: A cada 100 lotes (iterações) mostra a perda
         if batch % 100 == 0:
             loss, current = loss.item(), batch * len(X)
-            print(f"loss: {loss:>7f} [{current:>5d}/{size:>5d}]")
-
-    print(f"Epoch average loss: {totalLoss/len(dataloader):>7f}")
 
 def test(dataloader, model, loss_fn, device):
     # Obtém o tamanho do dataset
@@ -77,5 +74,4 @@ def test(dataloader, model, loss_fn, device):
     test_loss /= num_batches
     correct /= size
     # LOG: mostra a acurácia e a perda
-    print(f"Test Error: \n Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n")
     return (100*correct), test_loss
