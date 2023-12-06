@@ -5,6 +5,7 @@ from torchvision import datasets
 from torchvision.transforms import ToTensor
 import glob as gb
 import os
+from sklearn.metrics import confusion_matrix
 
 def train(dataloader, model, loss_fn, optimizer, device):
     # Obtém o tamanho do dataset
@@ -75,3 +76,28 @@ def test(dataloader, model, loss_fn, device):
     correct /= size
     # LOG: mostra a acurácia e a perda
     return (100*correct), test_loss
+
+def test_for_class(dataloader, model, loss_fn, device):
+    size = len(dataloader.dataset)
+    num_batches = len(dataloader)
+    model.eval()
+    test_loss, correct = 0, 0
+
+    pred_list = []
+    label_list = []
+
+    acc = [0 for c in range(10)]
+    y_list = [0 for c in range(10)]
+
+    with torch.no_grad():
+        for X, y in dataloader:
+            X, y = X.to(device), y.to(device)
+            pred = model(X)
+            for c in range(10):
+                acc[c] += (((pred.argmax(1) == y) * (y == c)).type(torch.float).sum().item())
+                y_list[c] += y.tolist().count(c)
+    for k in range(10):
+        acc[k] /= y_list[k]
+
+    test_loss /= num_batches
+    return acc, test_loss   
