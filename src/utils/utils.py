@@ -100,4 +100,29 @@ def test_for_class(dataloader, model, loss_fn, device):
         acc[k] /= y_list[k]
 
     test_loss /= num_batches
-    return acc, test_loss   
+    return acc, test_loss  
+
+def test_new_metrics(dataloader, model, loss_fn, device): 
+    size = len(dataloader.dataset)
+    num_batches = len(dataloader)
+    model.eval()
+    test_loss, correct = 0, 0
+
+    pred_list = []
+    label_list = []
+
+    with torch.no_grad():
+        for X, y in dataloader:
+            X, y = X.to(device), y.to(device)
+            pred = model(X)
+
+            test_loss += loss_fn(pred, y).item()
+            correct += (pred.argmax(1) == y).type(torch.float).sum().item()
+
+            pred_list.append(pred.argmax(1).cpu().detach().numpy())
+            label_list.append(y.cpu().detach().numpy())
+
+    test_loss /= num_batches
+    correct /= size
+    
+    return pred_list, label_list, (100*correct), test_loss
