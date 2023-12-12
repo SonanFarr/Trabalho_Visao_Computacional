@@ -10,6 +10,8 @@ from sklearn.metrics import confusion_matrix
 def train(dataloader, model, loss_fn, optimizer, device):
     # Obtém o tamanho do dataset
     size = len(dataloader.dataset)
+
+    num_batches = len(dataloader)
     # Indica que o modelo está em processo de treinamento
     model.train()
 
@@ -44,6 +46,8 @@ def train(dataloader, model, loss_fn, optimizer, device):
         # LOG: A cada 100 lotes (iterações) mostra a perda
         if batch % 100 == 0:
             loss, current = loss.item(), batch * len(X)
+    totalLoss /= num_batches
+    return totalLoss
 
 def test(dataloader, model, loss_fn, device):
     # Obtém o tamanho do dataset
@@ -93,6 +97,8 @@ def test_for_class(dataloader, model, loss_fn, device):
         for X, y in dataloader:
             X, y = X.to(device), y.to(device)
             pred = model(X)
+
+            test_loss += loss_fn(pred, y).item()
 
             pred_list.append(pred.argmax(1).cpu().detach().numpy())
             label_list.append(y.cpu().detach().numpy())
